@@ -4,7 +4,7 @@ bl_info = {
 "location": "View3D > Add > Mesh > Auto Delete,",
 "description": "Auto detect a delete elements",
 "author": "Vladislav Kindushov",
-"version": (0,1),
+"version": (0,2),
 "blender": (2, 7, 7),
 "category": "Mesh",
 }
@@ -34,20 +34,27 @@ class MeshDissolveContextual(bpy.types.Operator):
  
     @classmethod
     def poll(cls, context):
-        return bpy.ops.context.active_objectv
+        return context.space_data.type == "VIEW_3D"
         #return (context.active_object is not None)# and (context.mode == "EDIT_MESH")
    
     def execute(self, context):
         if bpy.context.mode == 'OBJECT':
             sel = bpy.context.selected_objects
 
-            bpy.ops.object.delete()
+            bpy.ops.object.delete(use_global=True)
             #print ('fdfsd')
         elif bpy.context.mode == 'EDIT_MESH':
             select_mode = context.tool_settings.mesh_select_mode
             me = context.object.data
             if select_mode[0]:
+                vertex = me.vertices
+
                 bpy.ops.mesh.dissolve_verts()
+
+                if vertex == me.vertices:
+                    bpy.ops.mesh.delete(type='VERT')
+
+
             elif select_mode[1] and not select_mode[2]:
                 edges1 = me.edges
 
