@@ -105,18 +105,20 @@ def register():
 	global obj
 	global mesh
 
+	activConfig = bpy.context.window_manager.keyconfigs.active.name
 	wm = bpy.context.window_manager
-	keymaps_3DV = wm.keyconfigs[0].keymaps['Object Mode']
+	keymaps_3DV = wm.keyconfigs[activConfig].keymaps['Object Mode']
 	keymap = keymaps_3DV.keymap_items['object.delete']
 	obj = keymap.idname
 	keymap.idname = 'mesh.autodelete_ot_darcvizer'
-	keymaps_3DV = wm.keyconfigs[0].keymaps['Mesh']
+	keymaps_3DV = wm.keyconfigs[activConfig].keymaps['Mesh']
+
 	i = 0
 	while (True):
-		print(bpy.context.window_manager.keyconfigs[0].keymaps['Mesh'].keymap_items[i].type)
-		if bpy.context.window_manager.keyconfigs[0].keymaps['Mesh'].keymap_items[i].type == 'X':
-			mesh = bpy.context.window_manager.keyconfigs[0].keymaps['Mesh'].keymap_items[i].idname
-			bpy.context.window_manager.keyconfigs[0].keymaps['Mesh'].keymap_items[i].idname = 'mesh.autodelete_ot_darcvizer'
+		print(bpy.context.window_manager.keyconfigs[activConfig].keymaps['Mesh'].keymap_items[i].type)
+		if bpy.context.window_manager.keyconfigs[activConfig].keymaps['Mesh'].keymap_items[i].type == 'X':
+			mesh = bpy.context.window_manager.keyconfigs[activConfig].keymaps['Mesh'].keymap_items[i].idname
+			bpy.context.window_manager.keyconfigs[activConfig].keymaps['Mesh'].keymap_items[i].idname = 'mesh.autodelete_ot_darcvizer'
 			break
 		else:
 			i = i + 1
