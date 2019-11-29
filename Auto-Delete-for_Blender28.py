@@ -5,8 +5,8 @@ bl_info = {
 	"location": "View3D > Add > Mesh > Auto Delete,",
 	"description": "Auto detect a delete elements",
 	"author": "Vladislav Kindushov",
-	"version": (0, 3),
-	"blender": (2, 80, 0),
+	"version": (0, 4),
+	"blender": (2, 81, 0),
 	"category": "Mesh",
 }
 
@@ -72,6 +72,10 @@ class WM_OT_AutoDelete(bpy.types.Operator):
 
 		elif bpy.context.mode == 'EDIT_CURVE':
 			bpy.ops.curve.delete(type='VERT')
+
+		elif bpy.context.mode == 'EDIT_ARMATURE':
+			bpy.ops.armature.delete()
+
 		return {'FINISHED'}
 
 
