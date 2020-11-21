@@ -5,7 +5,7 @@ bl_info = {
     "location": "View3D > Add > Mesh > Auto Delete,",
     "description": "Auto detect a delete elements",
     "author": "Vladislav Kindushov",
-    "version": (0, 3),
+    "version": (0, 4),
     "blender": (2, 80, 0),
     "category": "Mesh",
 }
